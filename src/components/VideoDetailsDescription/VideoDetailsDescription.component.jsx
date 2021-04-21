@@ -8,7 +8,7 @@ const formatDate = (date) => {
   return `${day}-${month}-${year}`;
 };
 
-const VideoDetailsSidebar = ({ title, description, publishedAt }) => {
+const VideoDetailsDescription = ({ title, description, publishedAt }) => {
   return (
     <>
       <h1>{title}</h1>
@@ -18,4 +18,4 @@ const VideoDetailsSidebar = ({ title, description, publishedAt }) => {
   );
 };
 
-export default VideoDetailsSidebar;
+export default VideoDetailsDescription;

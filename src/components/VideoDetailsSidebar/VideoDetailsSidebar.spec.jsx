@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import VideoDetailsSidebar from './VideoDetailsSidebar.component';
-import mockData from './mock-data';
+import mockData from '../../test-mock-data';
 
 describe('VideoDetailsSidebar', () => {
   it('should render all items in the mock data', () => {

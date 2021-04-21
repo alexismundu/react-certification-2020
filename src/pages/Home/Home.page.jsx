@@ -21,23 +21,27 @@ function HomePage() {
     history.push('/');
   }
 
-  // const YOUTUBE_SEARCH_ENDPOINT =
-  //   'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=';
+  const YOUTUBE_SEARCH_ENDPOINT =
+    'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
 
   const fetchVideos = async () => {
-    try {
-      console.log('Querying ', state.searchValue, '...');
-      throw Error('Not using Youtube API for search');
-      // setIsLoading(true);
-      // const res = await fetch(
-      //   `${YOUTUBE_SEARCH_ENDPOINT}${state.searchValue}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
-      // );
-      // if (!res.ok) throw Error('Youtube API response ', res.status);
-      // const data = await res.json();
-      // setVideos(data);
-      // setIsLoading(false);
-    } catch (err) {
-      console.log('info: ', err.message);
+    console.log('process.env', process.env.REACT_APP_ENVIRONMENT);
+    if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+      try {
+        console.log('Querying ', state.searchValue, '...');
+        setIsLoading(true);
+        const res = await fetch(
+          `${YOUTUBE_SEARCH_ENDPOINT}${state.searchValue}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+        );
+        if (!res.ok) throw Error('Youtube API response ', res.status);
+        const data = await res.json();
+        setVideos(data);
+        setIsLoading(false);
+      } catch (err) {
+        console.log('info: ', err.message);
+      }
+    } else {
+      setIsLoading(true);
       setTimeout(() => {
         setVideos(mockVideos);
         setIsLoading(false);

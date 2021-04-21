@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
-import { Paper } from '@material-ui/core';
-
-import { Container, StyledVideoDetailsSidebar, LeftContent } from './VideoDetails.styled';
+import {
+  Container,
+  StyledVideoDetailsSidebar,
+  LeftContent,
+  StyledPaper,
+} from './VideoDetails.styled';
 import mockVideos from '../../youtube-videos-mock.json';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoDetailsDescription from '../../components/VideoDetailsDescription';
@@ -25,7 +28,7 @@ const VideoDetails = () => {
     'https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&relatedToVideoId=';
 
   const fetchRelatedVideos = async () => {
-    if (process.env.REACT_APP_ENVIRONMENT === 'local') {
+    if (process.env.REACT_APP_ENVIRONMENT === 'production') {
       try {
         const res = await fetch(
           `${YOUTUBE_SEARCH_RELATED_ENDPOINT}${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
@@ -84,8 +87,9 @@ const VideoDetails = () => {
           </>
         )}
       </LeftContent>
+
       {isLoading ? (
-        <Paper style={{ height: '90vh' }} />
+        <StyledPaper style={{ height: '90vh' }} />
       ) : (
         <StyledVideoDetailsSidebar list={relatedVideos} />
       )}

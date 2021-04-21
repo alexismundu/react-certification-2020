@@ -4,14 +4,12 @@ import Paper from '@material-ui/core/Paper';
 export const VideoList = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 20%;
   height: 90vh;
   overflow-y: scroll;
 `;
 
 export const StyledVideo = styled(Paper)`
-  width: 100%;
-
   .MuiPaper-root {
     background-color: ${(props) => props.theme.text_color};
     color: ${(props) => props.theme.sub_color};

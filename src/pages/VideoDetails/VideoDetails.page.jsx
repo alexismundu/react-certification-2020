@@ -23,12 +23,12 @@ const VideoDetails = () => {
       //   `${YOUTUBE_SEARCH_ENDPOINT}${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
       // );
       // const mockVideos = await res.json();
-      console.log(videoId);
+      console.log(`Querying ${title} with VideoId ${videoId}...`);
       throw Error('Not using Youtube API for search since I exceeded the quota');
       // setRelatedVideos(mockVideos);
       // setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.log('Info: ', err.message);
       setTimeout(() => {
         setRelatedVideos(mockVideos);
         setIsLoading(false);
@@ -38,7 +38,7 @@ const VideoDetails = () => {
 
   useEffect(() => {
     fetchVideos();
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,9 +1,15 @@
 import React from 'react';
 
-import './Layout.styles.css';
+import Header from '../Header';
+import { Main, GlobalWrapper } from './Layout.styled';
 
 function Layout({ children }) {
-  return <main className="container">{children}</main>;
+  return (
+    <GlobalWrapper>
+      <Header />
+      <Main>{children}</Main>
+    </GlobalWrapper>
+  );
 }
 
 export default Layout;

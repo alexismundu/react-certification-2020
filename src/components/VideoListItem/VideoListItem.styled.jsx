@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 const marginBottom = '30px';
 
 const StyledVideo = styled(Paper)`
+  color: ${(props) => props.theme.bg_color};
   @media only screen and (max-width: 900px) {
     width: 49.5%;
     margin-bottom: ${marginBottom};
@@ -20,11 +21,11 @@ const StyledVideo = styled(Paper)`
   }
 
   .MuiPaper-root {
-    background-color: var(--text-color);
-    color: var(--sub-color);
+    background-color: ${(props) => props.theme.text_color};
+    color: ${(props) => props.theme.sub_color};
     border-radius: 0;
-    border-top-left-radius: 3%;
-    border-top-right-radius: 3%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
     height: 100%;
   }
   text-align: left;
@@ -73,8 +74,8 @@ const ChannelTitle = styled(TextBase)`
 const ThumbnailBase = styled.img`
   width: 100%;
   object-fit: cover;
-  border-top-left-radius: 2%;
-  border-top-right-radius: 2%;
+  border-top-left-radius: 1%;
+  border-top-right-radius: 1%;
 `;
 
 const Thumbnail = styled(ThumbnailBase)`

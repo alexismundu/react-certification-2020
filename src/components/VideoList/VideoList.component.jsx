@@ -6,9 +6,9 @@ import VideoListItem from '../VideoListItem';
 export default function VideoList({ list }) {
   return (
     <StyledVideoList>
-      {list.items.map((e) => (
-        <VideoListItem data={e} key={e.etag} />
-      ))}
+      {list.items.map((e) => {
+        return e.id.kind === 'youtube#video' && <VideoListItem data={e} key={e.etag} />;
+      })}
     </StyledVideoList>
   );
 }

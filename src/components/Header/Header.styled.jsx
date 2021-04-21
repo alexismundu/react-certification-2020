@@ -9,21 +9,21 @@ export const AppBar = styled(MaterialAppBar)`
 `;
 
 export const Toolbar = styled(MaterialToolbar)`
-  background-color: var(--text-color);
-  color: var(--sub-color);
+  background-color: ${(props) => props.theme.text_color};
+  color: ${(props) => props.theme.sub_color};
 `;
 
 export const Switch = styled(MaterialSwitch)`
   .MuiSwitch-track {
-    background-color: var(--sub-color);
+    background-color: ${(props) => props.theme.sub_color};
   }
 
   .MuiSwitch-colorSecondary.Mui-checked {
-    color: var(--text-color);
+    color: ${(props) => props.theme.bg_color};
   }
 
   .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
-    background-color: var(--sub-color);
+    background-color: ${(props) => props.theme.sub_color};
   }
 `;
 
@@ -41,12 +41,12 @@ export const SearchStyled = styled.div`
 
 export const TextField = styled(MaterialTextField)`
   & .MuiFormLabel-root {
-    color: var(--sub-color);
+    color: ${(props) => props.theme.sub_color};
   }
 
   & .MuiInputBase-input {
-    border-bottom: 1px solid var(--sub-color);
-    color: var(--bg-color);
+    border-bottom: 1px solid ${(props) => props.theme.sub_color};
+    color: ${(props) => props.theme.bg_color};
   }
 
   & .MuiInput-underline::after {
@@ -55,10 +55,10 @@ export const TextField = styled(MaterialTextField)`
 
   .MuiInput-underline:hover:not(.Mui-disabled):before
     .MuiInput-underline:hover:not(.Mui-disabled):after {
-    border-bottom: 1px solid var(--sub-color);
+    border-bottom: 1px solid ${(props) => props.theme.sub_color};
   }
 
   & .MuiFormLabel-root.Mui-focused {
-    color: var(--sub-color);
+    color: ${(props) => props.theme.sub_color};
   }
 `;

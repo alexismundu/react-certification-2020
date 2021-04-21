@@ -5,6 +5,7 @@ import { useAuth } from '../../providers/Auth';
 import './Home.styles.css';
 import VideoList from '../../components/VideoList';
 import mockVideos from '../../youtube-videos-mock.json';
+import { useAppContext } from '../../state/AppProvider';
 
 function HomePage() {
   const history = useHistory();
@@ -12,6 +13,7 @@ function HomePage() {
   const { authenticated, logout } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [videos, setVideos] = useState(true);
+  const { state } = useAppContext();
 
   function deAuthenticate(event) {
     event.preventDefault();
@@ -20,20 +22,22 @@ function HomePage() {
   }
 
   // const YOUTUBE_SEARCH_ENDPOINT =
-  //   'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=';
+  //   'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=2&q=';
 
-  const fetchVideos = async (q = 'Wizeline') => {
+  const fetchVideos = async () => {
     try {
-      // const res = await fetch(
-      //   `${YOUTUBE_SEARCH_ENDPOINT}${q}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
-      // );
-      // const data = await res.json();
-      console.log(q);
+      console.log('Querying ', state.searchValue, '...');
       throw Error('Not using Youtube API for search');
+      // setIsLoading(true);
+      // const res = await fetch(
+      //   `${YOUTUBE_SEARCH_ENDPOINT}${state.searchValue}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+      // );
+      // if (!res.ok) throw Error('Youtube API response ', res.status);
+      // const data = await res.json();
       // setVideos(data);
       // setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.log('info: ', err.message);
       setTimeout(() => {
         setVideos(mockVideos);
         setIsLoading(false);
@@ -43,7 +47,8 @@ function HomePage() {
 
   useEffect(() => {
     fetchVideos();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.searchValue]);
 
   return (
     <section className="homepage" ref={sectionRef}>

@@ -13,8 +13,8 @@ export const StyledVideo = styled(Paper)`
   width: 100%;
 
   .MuiPaper-root {
-    background-color: var(--text-color);
-    color: var(--sub-color);
+    background-color: ${(props) => props.theme.text_color};
+    color: ${(props) => props.theme.sub_color};
     border-radius: 0;
     border-top-left-radius: 3%;
     border-top-right-radius: 3%;

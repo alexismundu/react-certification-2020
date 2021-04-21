@@ -1,13 +1,11 @@
 import React from 'react';
 
 import { VideoDescription } from './VideoDetailsDescription.styled';
+import { destructDate } from '../../utils/datetime';
 
 const formatDate = (date) => {
-  const d = new Date(date);
-  const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-  const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
-  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-  return `${da}-${mo}-${ye}`;
+  const { year, month, day } = destructDate(new Date(date));
+  return `${day}-${month}-${year}`;
 };
 
 const VideoDetailsSidebar = ({ title, description, publishedAt }) => {

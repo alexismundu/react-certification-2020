@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import VideoList from './VideoList.component';
+import VideoDetailsSidebar from './VideoDetailsSidebar.component';
 
 const mockData = {
   kind: 'youtube#searchListResponse',
@@ -154,36 +154,15 @@ const mockData = {
   ],
 };
 
-describe('VideoList', () => {
-  it('should render all items except the first one that is a channel', () => {
-    const { getByText } = render(
+describe('VideoDetailsSidebar', () => {
+  it('should render all items in the mock data', () => {
+    const { getByText, getAllByRole } = render(
       <Router>
-        <VideoList list={mockData} />
+        <VideoDetailsSidebar list={mockData} />
       </Router>
     );
     expect(getByText('Video Tour | Welcome to Wizeline Guadalajara')).toBeInTheDocument();
-    expect(
-      getByText('Wizeline Guadalajara | Bringing Silicon Valley to Mexico')
-    ).toBeInTheDocument();
-    expect(
-      getByText('Wizeline hace sentir a empleados como en casa')
-    ).toBeInTheDocument();
-  });
-
-  it('should render the images in the mocked data', () => {
-    const { getByAltText } = render(
-      <Router>
-        <VideoList list={mockData} />
-      </Router>
-    );
-    expect(
-      getByAltText('Video Tour | Welcome to Wizeline Guadalajara')
-    ).toBeInTheDocument();
-    expect(
-      getByAltText('Wizeline Guadalajara | Bringing Silicon Valley to Mexico')
-    ).toBeInTheDocument();
-    expect(
-      getByAltText('Wizeline hace sentir a empleados como en casa')
-    ).toBeInTheDocument();
+    expect(getAllByRole('link').length).toBe(mockData.items.length);
+    expect(getAllByRole('img').length).toBe(mockData.items.length);
   });
 });

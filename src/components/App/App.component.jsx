@@ -6,6 +6,7 @@ import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import SecretPage from '../../pages/Secret';
+import VideoDetails from '../../pages/VideoDetails';
 import Private from '../Private';
 import Layout from '../Layout';
 
@@ -15,20 +16,12 @@ function App() {
       <AuthProvider>
         <Layout>
           <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-            <Private exact path="/secret">
-              <SecretPage />
-            </Private>
-            <Route path="*">
-              <NotFound />
-            </Route>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/login" component={LoginPage} />
+            <Private exact path="/secret" component={SecretPage} />
+            <Route exact name="videoDetails" path="/video/:id" component={VideoDetails} />
+            <Route path="*" component={NotFound} />
           </Switch>
-          {/* <Fortune /> */}
         </Layout>
       </AuthProvider>
     </BrowserRouter>

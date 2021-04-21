@@ -25,7 +25,6 @@ function HomePage() {
     'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
 
   const fetchVideos = async () => {
-    console.log('process.env', process.env.REACT_APP_ENVIRONMENT);
     if (process.env.REACT_APP_ENVIRONMENT === 'production') {
       try {
         console.log('Querying ', state.searchValue, '...');
@@ -38,7 +37,7 @@ function HomePage() {
         setVideos(data);
         setIsLoading(false);
       } catch (err) {
-        console.log('info: ', err.message);
+        console.log('Error: ', err.message);
       }
     } else {
       setIsLoading(true);

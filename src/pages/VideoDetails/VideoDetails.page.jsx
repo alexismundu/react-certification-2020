@@ -14,21 +14,24 @@ const VideoDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [relatedVideos, setRelatedVideos] = useState(true);
 
-  // const YOUTUBE_SEARCH_ENDPOINT =
-  //   'https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&relatedToVideoId=';
+  const YOUTUBE_SEARCH_ENDPOINT =
+    'https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&relatedToVideoId=';
 
   const fetchVideos = async () => {
-    try {
-      // const res = await fetch(
-      //   `${YOUTUBE_SEARCH_ENDPOINT}${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
-      // );
-      // const mockVideos = await res.json();
-      console.log(`Querying ${title} with VideoId ${videoId}...`);
-      throw Error('Not using Youtube API for search since I exceeded the quota');
-      // setRelatedVideos(mockVideos);
-      // setIsLoading(false);
-    } catch (err) {
-      console.log('Info: ', err.message);
+    if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `${YOUTUBE_SEARCH_ENDPOINT}${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+        );
+        const videos = await res.json();
+        setRelatedVideos(videos);
+        setIsLoading(false);
+      } catch (err) {
+        console.log('Error: ', err.message);
+      }
+    } else {
+      setIsLoading(true);
       setTimeout(() => {
         setRelatedVideos(mockVideos);
         setIsLoading(false);

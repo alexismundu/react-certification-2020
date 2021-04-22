@@ -6,6 +6,7 @@ import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import VideoDetails from '../../pages/VideoDetails';
+import Favorites from '../../pages/Favorites';
 import Private from '../Private';
 import Layout from '../Layout';
 
@@ -16,8 +17,9 @@ function App() {
         <Layout>
           <Switch>
             <Route exact path="/login" component={LoginPage} />
-            <Private exact path="/" component={HomePage} />
-            <Private exact path="/video/:id" component={VideoDetails} />
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/video/:id" component={VideoDetails} />
+            <Private path="/favorites" component={Favorites} />
             <Private path="*" component={NotFound} />
           </Switch>
         </Layout>

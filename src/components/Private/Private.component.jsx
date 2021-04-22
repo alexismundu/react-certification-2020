@@ -6,7 +6,6 @@ import { useAuth } from '../../providers/Auth';
 function Private({ component, ...rest }) {
   const { authenticated } = useAuth();
   const Component = component;
-  console.log('authenticated', authenticated);
 
   return (
     <Route

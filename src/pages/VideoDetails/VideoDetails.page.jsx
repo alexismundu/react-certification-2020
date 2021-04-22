@@ -78,8 +78,9 @@ const VideoDetails = () => {
           <h1>Loading...</h1>
         ) : (
           <>
-            <VideoPlayer channelId={id} title={currentVideo.title} />
+            <VideoPlayer videoId={id} title={currentVideo.title} />
             <VideoDetailsDescription
+              videoId={id}
               title={currentVideo.title}
               description={currentVideo.description}
               publishedAt={currentVideo.publishedAt}

@@ -7,7 +7,9 @@ export default function VideoList({ list }) {
   return (
     <StyledVideoList>
       {list.items.map((e) => {
-        return e.id.kind === 'youtube#video' && <VideoListItem data={e} key={e.etag} />;
+        return list.kind === 'youtube#videoListResponse'
+          ? e.kind === 'youtube#video' && <VideoListItem data={e} key={e.etag} />
+          : e.id.kind === 'youtube#video' && <VideoListItem data={e} key={e.etag} />;
       })}
     </StyledVideoList>
   );

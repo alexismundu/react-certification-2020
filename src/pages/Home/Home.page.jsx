@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../providers/Auth';
 import './Home.styles.css';
 import VideoList from '../../components/VideoList';
 import mockVideos from '../../youtube-videos-mock.json';
 import { useAppContext } from '../../state/AppProvider';
+import { StyledLink } from './Home.page.styled';
 
 function HomePage() {
   const history = useHistory();
@@ -60,15 +61,14 @@ function HomePage() {
         <>
           <h2>Good to have you back</h2>
           <span>
-            <Link to="/" onClick={deAuthenticate}>
+            <StyledLink to="/" onClick={deAuthenticate}>
               ← logout
-            </Link>
-            <span className="separator" />
-            <Link to="/secret">show me something cool →</Link>
+            </StyledLink>
           </span>
+          <Content isLoading={isLoading} videos={videos} />
         </>
       ) : (
-        <Content isLoading={isLoading} videos={videos} />
+        <h2>You have to be authenticated</h2>
       )}
     </section>
   );

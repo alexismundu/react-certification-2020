@@ -8,16 +8,16 @@ function getFavoriteVideos() {
   return JSON.parse(window.localStorage.getItem(FAVORITES_STORAGE_KEY));
 }
 
-function isVideoInFavorites(list, videoId) {
-  return Boolean(
-    list.find((element) => {
-      return element.videoId === videoId;
-    })
-  );
-}
-
 function setFavorites(list) {
   window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(list));
+}
+
+function isVideoInFavorites(list, videoId) {
+  return Boolean(
+    list.find((id) => {
+      return id === videoId;
+    })
+  );
 }
 
 function checkInFavorites(videoId) {
@@ -27,7 +27,7 @@ function checkInFavorites(videoId) {
 }
 
 function removeFromFavorites(list, videoId) {
-  return list.filter((element) => element.videoId !== videoId);
+  return list.filter((id) => id !== videoId);
 }
 
 export {

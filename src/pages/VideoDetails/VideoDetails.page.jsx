@@ -16,7 +16,6 @@ import {
   removeFromFavorites,
   setFavorites,
 } from '../../utils/fns';
-import { FAVORITES_STORAGE_KEY } from '../../utils/constants';
 
 const VideoDetails = () => {
   const { id } = useParams();
@@ -74,13 +73,13 @@ const VideoDetails = () => {
     const isArrayInitialized = favoriteVideos !== null && favoriteVideos.length > 0;
     let shouldRemoveElement = false;
     if (!isArrayInitialized) {
-      newFavoriteVideos.push(currentVideo);
+      newFavoriteVideos.push(id);
     } else {
       shouldRemoveElement = isVideoInFavorites(favoriteVideos, id);
       if (shouldRemoveElement) {
         newFavoriteVideos = removeFromFavorites(favoriteVideos, id);
       } else {
-        favoriteVideos.push(currentVideo);
+        favoriteVideos.push(id);
         newFavoriteVideos = favoriteVideos;
       }
     }

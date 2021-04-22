@@ -4,14 +4,20 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 import { VideoDescription } from './VideoDetailsDescription.styled';
 import { destructDate } from '../../utils/datetime';
-import { isElementInArray, checkInFavorites } from '../../utils/fns';
+import { checkInFavorites } from '../../utils/fns';
 
 const formatDate = (date) => {
   const { year, month, day } = destructDate(new Date(date));
   return `${day}-${month}-${year}`;
 };
 
-const VideoDetailsDescription = ({ videoId, title, description, publishedAt }) => {
+const VideoDetailsDescription = ({
+  videoId,
+  title,
+  description,
+  publishedAt,
+  onAddToFavorites,
+}) => {
   const [isVideoLiked, setIsVideoLiked] = useState(false);
 
   useEffect(() => {
@@ -20,23 +26,7 @@ const VideoDetailsDescription = ({ videoId, title, description, publishedAt }) =
 
   function handleAddToFavorites() {
     setIsVideoLiked(!isVideoLiked);
-    let newFavoriteVideos = [];
-    const favoriteVideos = JSON.parse(window.localStorage.getItem('favoriteVideos'));
-    const isArrayInitialized = favoriteVideos !== null && favoriteVideos.length > 0;
-    let shouldRemoveElement = false;
-    if (!isArrayInitialized) {
-      newFavoriteVideos.push(videoId);
-    } else {
-      shouldRemoveElement = isElementInArray(favoriteVideos, videoId);
-      if (shouldRemoveElement) {
-        newFavoriteVideos = favoriteVideos.filter((value) => value !== videoId);
-      } else {
-        favoriteVideos.push(videoId);
-        newFavoriteVideos = favoriteVideos;
-      }
-    }
-
-    window.localStorage.setItem('favoriteVideos', JSON.stringify(newFavoriteVideos));
+    onAddToFavorites();
   }
 
   return (

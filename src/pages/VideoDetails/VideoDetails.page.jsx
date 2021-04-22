@@ -10,6 +10,13 @@ import {
 import mockVideos from '../../youtube-videos-mock.json';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoDetailsDescription from '../../components/VideoDetailsDescription';
+import {
+  getFavoriteVideos,
+  isVideoInFavorites,
+  removeFromFavorites,
+  setFavorites,
+} from '../../utils/fns';
+import { FAVORITES_STORAGE_KEY } from '../../utils/constants';
 
 const VideoDetails = () => {
   const { id } = useParams();
@@ -61,6 +68,26 @@ const VideoDetails = () => {
     }
   };
 
+  function onAddToFavorites() {
+    let newFavoriteVideos = [];
+    const favoriteVideos = getFavoriteVideos();
+    const isArrayInitialized = favoriteVideos !== null && favoriteVideos.length > 0;
+    let shouldRemoveElement = false;
+    if (!isArrayInitialized) {
+      newFavoriteVideos.push(currentVideo);
+    } else {
+      shouldRemoveElement = isVideoInFavorites(favoriteVideos, id);
+      if (shouldRemoveElement) {
+        newFavoriteVideos = removeFromFavorites(favoriteVideos, id);
+      } else {
+        favoriteVideos.push(currentVideo);
+        newFavoriteVideos = favoriteVideos;
+      }
+    }
+
+    setFavorites(newFavoriteVideos);
+  }
+
   useEffect(() => {
     if (currentVideo.title === null) {
       fecthVideoById(id);
@@ -84,6 +111,7 @@ const VideoDetails = () => {
               title={currentVideo.title}
               description={currentVideo.description}
               publishedAt={currentVideo.publishedAt}
+              onAddToFavorites={onAddToFavorites}
             />
           </>
         )}

@@ -17,8 +17,8 @@ function App() {
         <Layout>
           <Switch>
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/video/:id" component={VideoDetails} />
+            <Private exact path="/" component={HomePage} />
+            <Private exact path="/video/:id" component={VideoDetails} />
             <Private path="/favorites" component={Favorites} />
             <Private path="*" component={NotFound} />
           </Switch>

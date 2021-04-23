@@ -2,16 +2,22 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 
-import { StyledVideo, VideoTitle, Thumbnail, ChannelTitle } from './VideoListItem.styled';
+import {
+  StyledVideo,
+  VideoTitle,
+  Thumbnail,
+  ChannelTitle,
+} from './FavoriteVideoListItem.styled';
 
-const VideoLisItem = ({ data }) => {
+const FavoriteVideoLisItem = ({ data }) => {
   const { title, thumbnails, channelTitle, description, publishedAt } = data.snippet;
   const { videoId } = data.id;
+  console.log(data.id);
   return (
     <StyledVideo>
       <Link
         to={{
-          pathname: `/video/${videoId}`,
+          pathname: `/favorites/${videoId}`,
           state: { title, description, publishedAt, videoId },
         }}
       >
@@ -25,4 +31,4 @@ const VideoLisItem = ({ data }) => {
   );
 };
 
-export default withRouter(VideoLisItem);
+export default withRouter(FavoriteVideoLisItem);

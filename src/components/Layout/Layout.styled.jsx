@@ -10,7 +10,6 @@ export const Main = styled.main`
 `;
 
 export const GlobalWrapper = styled.div`
-  height: 100%;
   background-color: ${(props) => props.theme.bg_color};
   color: ${(props) => props.theme.text_color};
 `;

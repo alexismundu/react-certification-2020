@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyledVideoList } from './VideoList.styled';
 import VideoListItem from '../VideoListItem';
-import FavoriteVideoListItem from '../FavoriteVideoListItem.component.jsx/FavoriteVideoListItem.component';
+import FavoriteVideoListItem from '../FavoriteVideoListItem';
 
 export default function VideoList({ list }) {
   return (

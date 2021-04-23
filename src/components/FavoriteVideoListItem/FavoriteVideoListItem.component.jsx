@@ -11,8 +11,8 @@ import {
 
 const FavoriteVideoLisItem = ({ data }) => {
   const { title, thumbnails, channelTitle, description, publishedAt } = data.snippet;
-  const { videoId } = data.id;
-  console.log(data.id);
+  const videoId = data.id;
+  console.log(videoId);
   return (
     <StyledVideo>
       <Link

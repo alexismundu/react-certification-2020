@@ -16,7 +16,7 @@ export const StyledVideoList = styled.div`
 export const Section = styled.section`
   text-align: center;
   width: 100%;
-
+  height: 100%;
   h1 {
     font-size: 3rem;
     letter-spacing: -2px;

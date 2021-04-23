@@ -10,13 +10,10 @@ export const VideoList = styled.div`
 `;
 
 export const StyledVideo = styled(Paper)`
-  .MuiPaper-root {
+  &.MuiPaper-root {
     background-color: ${(props) => props.theme.text_color};
     color: ${(props) => props.theme.sub_color};
-    border-radius: 0;
-    border-top-left-radius: 3%;
-    border-top-right-radius: 3%;
-    height: 100%;
+    border-radius: 3%;
   }
   text-align: left;
 `;
@@ -33,6 +30,8 @@ export const TextBase = styled.p`
 
 export const VideoTitle = styled(TextBase)`
   max-height: 30%;
+  padding: 5px;
+
   @media only screen and (max-width: 600px) {
     font-size: 0.7rem;
   }
@@ -48,6 +47,7 @@ export const VideoTitle = styled(TextBase)`
 
 export const ChannelTitle = styled(TextBase)`
   font-weight: 100;
+  padding: 5px;
   @media only screen and (max-width: 600px) {
     font-size: 0.5rem;
   }

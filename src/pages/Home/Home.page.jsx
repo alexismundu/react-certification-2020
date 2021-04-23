@@ -1,26 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../providers/Auth';
 import './Home.styles.css';
 import VideoList from '../../components/VideoList';
 import mockVideos from '../../youtube-videos-mock.json';
 import { useAppContext } from '../../state/AppProvider';
-import { StyledLink } from './Home.page.styled';
 
 function HomePage() {
-  const history = useHistory();
   const sectionRef = useRef(null);
-  const { authenticated, logout } = useAuth();
+  const { authenticated } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [videos, setVideos] = useState(true);
   const { state } = useAppContext();
-
-  function deAuthenticate(event) {
-    event.preventDefault();
-    logout();
-    history.push('/');
-  }
 
   const YOUTUBE_SEARCH_ENDPOINT =
     'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=';
@@ -60,11 +51,6 @@ function HomePage() {
       {authenticated ? (
         <>
           <h2>Good to have you back</h2>
-          <span>
-            <StyledLink to="/" onClick={deAuthenticate}>
-              ← logout
-            </StyledLink>
-          </span>
           <Content isLoading={isLoading} videos={videos} />
         </>
       ) : (

@@ -78,10 +78,10 @@ const VideoDetails = () => {
       shouldRemoveElement = isVideoInFavorites(favoriteVideos, id);
       if (shouldRemoveElement) {
         newFavoriteVideos = removeFromFavorites(favoriteVideos, id);
-      } else {
-        favoriteVideos.push(id);
-        newFavoriteVideos = favoriteVideos;
+        return;
       }
+      favoriteVideos.push(id);
+      newFavoriteVideos = favoriteVideos;
     }
 
     setFavorites(newFavoriteVideos);

@@ -96,4 +96,8 @@ const Thumbnail = styled(ThumbnailBase)`
   }
 `;
 
-export { StyledVideo, VideoTitle, Thumbnail, ChannelTitle };
+const VideoItemFooter = styled.div`
+  display: flex;
+`;
+
+export { StyledVideo, VideoTitle, Thumbnail, ChannelTitle, VideoItemFooter };

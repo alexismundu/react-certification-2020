@@ -27,7 +27,11 @@ function checkInFavorites(videoId) {
 }
 
 function removeFromFavorites(list, videoId) {
-  return list.filter((id) => id !== videoId);
+  let tmpList = null;
+  if (list == null) tmpList = getFavoriteVideos;
+  else tmpList = [...list];
+  setFavorites(tmpList);
+  return tmpList.filter((id) => id !== videoId);
 }
 
 export {

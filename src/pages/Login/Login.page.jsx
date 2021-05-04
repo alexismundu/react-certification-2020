@@ -18,7 +18,7 @@ function LoginPage() {
 
   return (
     <section className="login">
-      <h1>Welcome back!</h1>
+      <h1>Welcome!</h1>
       <form onSubmit={authenticate} className="login-form">
         <div className="form-group">
           <label htmlFor="username">

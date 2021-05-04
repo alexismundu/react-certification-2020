@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
-import { Paper } from '@material-ui/core';
-
-import { Container, StyledVideoDetailsSidebar, LeftContent } from './VideoDetails.styled';
+import { Container, LeftContent, StyledPaper } from './VideoDetails.styled';
 import mockVideos from '../../youtube-videos-mock.json';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoDetailsDescription from '../../components/VideoDetailsDescription';
+import {
+  getFavoriteVideos,
+  isVideoInFavorites,
+  removeFromFavorites,
+  setFavorites,
+} from '../../utils/fns';
+import VideoDetailsSidebarComponent from '../../components/VideoDetailsSidebar';
 
 const VideoDetails = () => {
   const { id } = useParams();
-  const { title, description, publishedAt, videoId } = useLocation().state;
+  const locationState = useLocation().state;
+  const [currentVideo, setCurrentVideo] = useState(
+    locationState || {
+      title: null,
+      description: null,
+      publishedAt: '2019-09-30T23:54:32Z',
+    }
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [relatedVideos, setRelatedVideos] = useState(true);
 
-  // const YOUTUBE_SEARCH_ENDPOINT =
-  //   'https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&relatedToVideoId=';
+  const YOUTUBE_SEARCH_RELATED_ENDPOINT =
+    'https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&relatedToVideoId=';
 
-  const fetchVideos = async () => {
-    try {
-      // const res = await fetch(
-      //   `${YOUTUBE_SEARCH_ENDPOINT}${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
-      // );
-      // const mockVideos = await res.json();
-      console.log(`Querying ${title} with VideoId ${videoId}...`);
-      throw Error('Not using Youtube API for search since I exceeded the quota');
-      // setRelatedVideos(mockVideos);
-      // setIsLoading(false);
-    } catch (err) {
-      console.log('Info: ', err.message);
+  const fetchRelatedVideos = async () => {
+    if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+      try {
+        const res = await fetch(
+          `${YOUTUBE_SEARCH_RELATED_ENDPOINT}${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+        );
+        const videos = await res.json();
+        setRelatedVideos(videos);
+        setIsLoading(false);
+      } catch (err) {
+        console.log('Error: ', err.message);
+      }
+    } else {
       setTimeout(() => {
         setRelatedVideos(mockVideos);
         setIsLoading(false);
@@ -36,25 +49,73 @@ const VideoDetails = () => {
     }
   };
 
+  const fecthVideoById = async () => {
+    try {
+      const res = await fetch(
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+      );
+      const data = await res.json();
+      const video = data.items[0];
+      setCurrentVideo(video.snippet);
+      await fetchRelatedVideos();
+    } catch (err) {
+      console.log('Error: ', err.message);
+    }
+  };
+
+  function onAddToFavorites() {
+    let newFavoriteVideos = [];
+    const favoriteVideos = getFavoriteVideos();
+    const isArrayInitialized = favoriteVideos !== null && favoriteVideos.length > 0;
+    let shouldRemoveElement = false;
+    if (!isArrayInitialized) {
+      newFavoriteVideos.push(id);
+    } else {
+      shouldRemoveElement = isVideoInFavorites(favoriteVideos, id);
+      if (shouldRemoveElement) {
+        newFavoriteVideos = removeFromFavorites(favoriteVideos, id);
+        return;
+      }
+      favoriteVideos.push(id);
+      newFavoriteVideos = favoriteVideos;
+    }
+
+    setFavorites(newFavoriteVideos);
+  }
+
   useEffect(() => {
-    fetchVideos();
+    if (currentVideo.title === null) {
+      fecthVideoById(id);
+    } else {
+      setCurrentVideo(locationState);
+      fetchRelatedVideos();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   return (
     <Container>
       <LeftContent>
-        <VideoPlayer channelId={id} title={title} />
-        <VideoDetailsDescription
-          title={title}
-          description={description}
-          publishedAt={publishedAt}
-        />
+        {isLoading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            <VideoPlayer videoId={id} title={currentVideo.title} />
+            <VideoDetailsDescription
+              videoId={id}
+              title={currentVideo.title}
+              description={currentVideo.description}
+              publishedAt={currentVideo.publishedAt}
+              onAddToFavorites={onAddToFavorites}
+            />
+          </>
+        )}
       </LeftContent>
+
       {isLoading ? (
-        <Paper style={{ height: '90vh' }} />
+        <StyledPaper style={{ height: '90vh' }} />
       ) : (
-        <StyledVideoDetailsSidebar list={relatedVideos} />
+        <VideoDetailsSidebarComponent list={relatedVideos} />
       )}
     </Container>
   );

@@ -5,6 +5,7 @@ import { VideoList } from './VideoDetailsSidebar.styled';
 import VideoListItem from './VideoListItem.component';
 
 const VideoDetailsSidebar = ({ list }) => {
+  console.log('list:', list);
   return (
     <VideoList>
       {list.items.map((e) => (

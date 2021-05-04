@@ -9,21 +9,27 @@ import {
 } from './VideoDetailsSidebar.styled';
 
 export default ({ data }) => {
-  const { title, thumbnails, channelTitle, description, publishedAt } = data.snippet;
+  const { title, thumbnails, channelTitle, description, publishedAt } = data.snippet
+    ? data.snippet
+    : {};
   const { videoId } = data.id;
 
   return (
-    <Link
-      to={{
-        pathname: `/video/${data.id.videoId}`,
-        state: { title, description, publishedAt, videoId },
-      }}
-    >
-      <StyledVideo>
-        <Thumbnail src={thumbnails.default.url} alt={title} />
-        <VideoTitle>{title}</VideoTitle>
-        <ChannelTitle>{channelTitle}</ChannelTitle>
-      </StyledVideo>
-    </Link>
+    <>
+      {data.snippet && (
+        <Link
+          to={{
+            pathname: `/video/${data.id.videoId}`,
+            state: { title, description, publishedAt, videoId },
+          }}
+        >
+          <StyledVideo>
+            <Thumbnail src={thumbnails.default.url} alt={title} />
+            <VideoTitle>{title}</VideoTitle>
+            <ChannelTitle>{channelTitle}</ChannelTitle>
+          </StyledVideo>
+        </Link>
+      )}
+    </>
   );
 };

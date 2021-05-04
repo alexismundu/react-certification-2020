@@ -1,24 +1,37 @@
 import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
 
-export const VideoList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 20%;
-  height: 90vh;
-  overflow-y: scroll;
-`;
+const marginBottom = '30px';
 
-export const StyledVideo = styled(Paper)`
-  &.MuiPaper-root {
+const StyledVideo = styled(Paper)`
+  color: ${(props) => props.theme.bg_color};
+  @media only screen and (max-width: 900px) {
+    width: 49.5%;
+    margin-bottom: ${marginBottom};
+  }
+
+  @media only screen and (min-width: 900px) {
+    width: 32.5%;
+    margin-bottom: ${marginBottom};
+  }
+
+  @media only screen and (min-width: 1400px) {
+    width: 24.5%;
+    margin-bottom: ${marginBottom};
+  }
+
+  .MuiPaper-root {
     background-color: ${(props) => props.theme.text_color};
     color: ${(props) => props.theme.sub_color};
-    border-radius: 3%;
+    border-radius: 0;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    height: 100%;
   }
   text-align: left;
 `;
 
-export const TextBase = styled.p`
+const TextBase = styled.p`
   margin: 0 10px 10px 10px;
   text-overflow: hidden;
   overflow: hidden;
@@ -28,10 +41,8 @@ export const TextBase = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-export const VideoTitle = styled(TextBase)`
+const VideoTitle = styled(TextBase)`
   max-height: 30%;
-  padding: 5px;
-
   @media only screen and (max-width: 600px) {
     font-size: 0.7rem;
   }
@@ -45,9 +56,8 @@ export const VideoTitle = styled(TextBase)`
   }
 `;
 
-export const ChannelTitle = styled(TextBase)`
+const ChannelTitle = styled(TextBase)`
   font-weight: 100;
-  padding: 5px;
   @media only screen and (max-width: 600px) {
     font-size: 0.5rem;
   }
@@ -61,14 +71,14 @@ export const ChannelTitle = styled(TextBase)`
   }
 `;
 
-export const ThumbnailBase = styled.img`
+const ThumbnailBase = styled.img`
   width: 100%;
   object-fit: cover;
-  border-top-left-radius: 2%;
-  border-top-right-radius: 2%;
+  border-top-left-radius: 1%;
+  border-top-right-radius: 1%;
 `;
 
-export const Thumbnail = styled(ThumbnailBase)`
+const Thumbnail = styled(ThumbnailBase)`
   @media only screen and (max-width: 600px) {
     height: 90px;
   }
@@ -85,3 +95,9 @@ export const Thumbnail = styled(ThumbnailBase)`
     height: 150px;
   }
 `;
+
+const VideoItemFooter = styled.div`
+  display: flex;
+`;
+
+export { StyledVideo, VideoTitle, Thumbnail, ChannelTitle, VideoItemFooter };

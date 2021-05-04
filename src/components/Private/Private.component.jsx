@@ -3,11 +3,15 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from '../../providers/Auth';
 
-function Private({ children, ...rest }) {
+function Private({ component, ...rest }) {
   const { authenticated } = useAuth();
+  const Component = component;
 
   return (
-    <Route {...rest} render={() => (authenticated ? children : <Redirect to="/" />)} />
+    <Route
+      {...rest}
+      render={() => (authenticated ? <Component /> : <Redirect to="/login" />)}
+    />
   );
 }
 

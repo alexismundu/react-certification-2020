@@ -5,7 +5,8 @@ function random(limit) {
 }
 
 function getFavoriteVideos() {
-  return JSON.parse(window.localStorage.getItem(FAVORITES_STORAGE_KEY));
+  const favorites = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+  return favorites !== 'undefined' ? JSON.parse(favorites) : null;
 }
 
 function setFavorites(list) {

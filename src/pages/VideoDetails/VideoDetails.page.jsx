@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
-import {
-  Container,
-  StyledVideoDetailsSidebar,
-  LeftContent,
-  StyledPaper,
-} from './VideoDetails.styled';
+import { Container, LeftContent, StyledPaper } from './VideoDetails.styled';
 import mockVideos from '../../youtube-videos-mock.json';
 import VideoPlayer from '../../components/VideoPlayer';
 import VideoDetailsDescription from '../../components/VideoDetailsDescription';
@@ -16,6 +11,7 @@ import {
   removeFromFavorites,
   setFavorites,
 } from '../../utils/fns';
+import VideoDetailsSidebarComponent from '../../components/VideoDetailsSidebar';
 
 const VideoDetails = () => {
   const { id } = useParams();
@@ -119,7 +115,7 @@ const VideoDetails = () => {
       {isLoading ? (
         <StyledPaper style={{ height: '90vh' }} />
       ) : (
-        <StyledVideoDetailsSidebar list={relatedVideos} />
+        <VideoDetailsSidebarComponent list={relatedVideos} />
       )}
     </Container>
   );
